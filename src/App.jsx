@@ -11,12 +11,12 @@ function App() {
     <>
     <AuthProvider>
     <Navbar/>
-    <div classsName="pt-10">
+    <main classsName="pt-10">
        <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/auth" element={<Auth/>}/>
        </Routes>
-       </div>
+       </main>
     </AuthProvider> 
     </>
   )

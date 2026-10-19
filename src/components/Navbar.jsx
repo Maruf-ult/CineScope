@@ -17,7 +17,7 @@ const Navbar = () => {
     }`
 
   return (
-    <nav className='fixed left-0 right-0 top-0 z-50 py-3 shadow-md  '>
+    <nav className='fixed left-0 right-0 top-0 z-50 py-3 shadow-md bg-white '>
        <div className='mx-auto flex max-w-7xl items-center justify-start gap-7 '>
             <div className='flex gap-2 ml-8 text-blue-600'>
                  <Film className='w-8 h-8'/> 
