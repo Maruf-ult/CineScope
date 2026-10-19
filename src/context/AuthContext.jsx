@@ -7,7 +7,7 @@ import  { createContext, useContext, useState } from 'react'
 export default function AuthProvider({children}) {
 
   
-     const [user, setUser] = useState(() => {
+    const [user, setUser] = useState(() => {
     const name = localStorage.getItem('CurrentUserName')
     const email = localStorage.getItem('CurrentUserEmail')
 
@@ -42,6 +42,7 @@ export default function AuthProvider({children}) {
     function Logout(){
         localStorage.removeItem("CurrentUserEmail");
         localStorage.removeItem("CurrentUserName");
+        localStorage.removeItem("favourites");
         setUser(null);
         return {success:true,msg:"Logged Out Successfully"};
     }

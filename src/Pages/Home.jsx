@@ -2,43 +2,53 @@ import SearchBox from '../components/SearchBox'
 import homeImage from '../assets/homeImage.png'
 import { useEffect, useState } from 'react'
 import { getPopularMovies, searchMovies } from '../services/MovieApi'
-import { MoveRight } from 'lucide-react'
+import { MoveRight, X } from 'lucide-react'
 import MovieCard from '../components/MovieCard'
+import { useSearchParams } from 'react-router-dom'
 
 const Home = () => {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [viewAll,setViewAll] = useState(true);
+  const [viewAll, setViewAll] = useState(true)
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const searchQuery = searchParams.get('search')?.trim() || ''
 
   useEffect(() => {
-    const loadPopularMovies = async () => {
+    const loadMovies = async () => {
+      setLoading(true)
+      setError(null)
+
       try {
-        const allMovies = await getPopularMovies()
-        setMovies(allMovies)
-        console.log(allMovies)
+        if (searchQuery) {
+          const results = await searchMovies(searchQuery)
+          setMovies(results)
+          setViewAll(false)
+        } else {
+          const results = await getPopularMovies()
+          setMovies(results)
+          setViewAll(true)
+        }
       } catch (error) {
-        console.log(error)
-        setError(error)
+        console.error(error)
+        setError(error.message || 'Failed to load movies')
+        setMovies([])
       } finally {
         setLoading(false)
       }
     }
-    loadPopularMovies()
-  }, [])
 
-  if (loading) {
-    return (
-      <div className="pt-30 flex items-center justify-center text-center bg-gray-500">
-        <p>Loading....</p>
-      </div>
-    )
+    loadMovies()
+  }, [searchQuery])
+
+  const clearSearch = () => {
+    setSearchParams({})
   }
-
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 items-center pt-20  justify-start ">
-      <div className="flex items-start justify-center gap-20 pt-1  ">
+      <div className="flex items-start justify-center gap-50 pt-10  ">
         <div className="flex flex-col gap-6">
           <h3 className="text-black text-4xl font-bold">
             Discover your <br /> next favourite movie
@@ -50,29 +60,56 @@ const Home = () => {
           <SearchBox Position="middle" />
         </div>
         <div className="">
-          <img className="h-78" src={homeImage} alt="authimage" />
+          <img className="h-60 w-full" src={homeImage} alt="authimage" />
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className=" w-full max-w-6xl px-4 flex  flex-col gap-2">
         <div className="flex items-center justify-between w-full">
           <h1 className="font-bold text-xl text-black">Popular Movies</h1>
 
-          <div onClick={()=>setViewAll(!viewAll)} className="flex items-center justify-center text-center gap-0.5 cursor-pointer font-bold">
-            <p className="text-blue-500  hover:text-blue-400 transition-colors">{viewAll?"View All":"Show Less"}</p>
+          <div className="flex items-center gap-4">
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="flex items-center gap-1 text-red-500 hover:text-red-700 transition-colors cursor-pointer"
+              >
+                <X size={16} />
+                <span>Clear Search</span>
+              </button>
+            )}
+          </div>
+
+          <div
+            onClick={() => setViewAll(!viewAll)}
+            className="flex items-center justify-center text-center gap-0.5 cursor-pointer font-bold"
+          >
+            <p className="text-blue-500  hover:text-blue-400 transition-colors">
+              {viewAll ? 'View All' : 'Show Less'}
+            </p>
             <MoveRight className="text-blue-700  " size={20} />
           </div>
         </div>
 
-        {viewAll?( <div className="grid grid-cols-5 gap-4 ">
-          {movies?.slice(0,5).map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>):( <div className="grid grid-cols-5 gap-4 ">
-          {movies?.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>)}
-
+        {loading && <p>Loading....</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && movies?.length === 0 && (
+          <p className="text-gray-500 py-6">
+            No movies found. Try another title.
+          </p>
+        )}
+        {viewAll ? (
+          <div className="grid grid-cols-5 gap-4 ">
+            {movies?.slice(0, 5).map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-5 gap-4 ">
+            {movies?.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

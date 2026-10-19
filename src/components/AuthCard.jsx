@@ -102,7 +102,7 @@ const AuthCard = () => {
 
       <button 
         type='submit' 
-        className=" w-full rounded-lg bg-blue-600 p-3 font-semibold text-white transition hover:bg-blue-700"
+        className=" w-full cursor-pointer rounded-lg bg-blue-600 p-3 font-semibold text-white transition hover:bg-blue-700"
       >
         {isLogin ? "Sign In" : "Create Account"}
       </button>
