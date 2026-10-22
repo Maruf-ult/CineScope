@@ -22,3 +22,14 @@ export const searchMovies = async (query) => {
   const data = await response.json()
   return data.results
 }
+
+export const getMovieDetails = async (id) =>{
+    const response = await fetch(`${base_url}/movie/${id}?api_key=${api_key}`);
+      
+      if(!response.ok){
+        throw new Error('Failed to load movie details')
+      }
+      const data =await response.json();
+      return data;
+
+}

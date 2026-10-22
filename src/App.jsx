@@ -5,6 +5,7 @@ import Auth from './Pages/Auth'
 import AuthProvider from './context/AuthContext'
 import MovieProvider from './context/movieContext'
 import WatchList from './Pages/WatchList'
+import MovieDetails from './Pages/MovieDetails'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path='/watchlist' element={<WatchList/>}/>
+              <Route path='/details/:id' element={<MovieDetails/>}/>
             </Routes>
           </main>
         </MovieProvider>

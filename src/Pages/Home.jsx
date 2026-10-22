@@ -48,22 +48,22 @@ const Home = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 items-center pt-20  justify-start ">
-      <div className="flex items-start justify-center gap-50 pt-10  ">
-        <div className="flex flex-col gap-6">
-          <h3 className="text-black text-4xl font-bold">
+      <div className="flex items-start justify-center lg:gap-50 md:gap-20  md:pt-10  ">
+        <div className="flex flex-col   gap-5  p-4 sm:p-0 md:gap-6 md:ml-4 ">
+          <h3 className="text-black text-3xl md:text-4xl font-bold">
             Discover your <br /> next favourite movie
           </h3>
-          <p className="font-light">
-            Explore thousands of movies, search by title, filter by genre <br />
+          <p className="font-light  ">
+            Explore thousands of movies, search by title, filter by genre <br className='hidden  lg:inline' />
             and build your personal wathcList.
           </p>
           <SearchBox Position="middle" />
         </div>
-        <div className="">
-          <img className="h-60 w-full" src={homeImage} alt="authimage" />
+        <div className="hidden md:block">
+          <img className=" h-60 w-full " src={homeImage} alt="authimage" />
         </div>
       </div>
-      <div className=" w-full max-w-6xl px-4 flex  flex-col gap-2">
+      <div className=" w-full max-w-6xl px-4 flex  flex-col gap-4 mt-4">
         <div className="flex items-center justify-between w-full">
           <h1 className="font-bold text-xl text-black">Popular Movies</h1>
 
@@ -98,13 +98,13 @@ const Home = () => {
           </p>
         )}
         {viewAll ? (
-          <div className="grid grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5 md:gap-4 ">
             {movies?.slice(0, 5).map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ">
             {movies?.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}

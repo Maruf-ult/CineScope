@@ -12,6 +12,7 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
 
   const favourite = isFavourite(movie.id);
+  console.log(movie.id);
   
   const handleFavourites = (movie) =>{
     if(favourite){
@@ -26,12 +27,12 @@ const MovieCard = ({ movie }) => {
 
 
   return (
-    <div className="group flex flex-col items-start justify-center cursor-pointer bg-white shadow-2xl rounded-lg overflow-hidden">
+    <div onClick={()=>navigate(`/details/${movie.id}`)} className="group flex flex-col items-start justify-center cursor-pointer bg-white shadow-2xl rounded-lg overflow-hidden">
       <div className="relative w-full">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
-          className="w-full h-40 object-cover"
+          className="w-full h-40 object-fill"
         />
         <button onClick={() => handleFavourites(movie)}
           className="absolute top-2 right-2 flex items-center justify-center

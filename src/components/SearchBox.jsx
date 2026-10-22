@@ -23,7 +23,7 @@ const SearchBox = ({ Position }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center justify-between gap-3 bg-gray-200 h-10 rounded-sm w-full overflow-hidden"
+      className="flex items-center justify-between gap-3 bg-gray-200 h-10 rounded-sm  md:w-full w-80 overflow-hidden"
     >
       <input
         className="w-full bg-transparent outline-none pl-3 text-sm"

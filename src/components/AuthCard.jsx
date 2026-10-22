@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, UserCircle } from 'lucide-react'; // Removed Form from here
+import { Lock, User, UserCircle } from 'lucide-react'; 
 
 const AuthCard = () => {
   const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const AuthCard = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Fixed typo here
+    e.preventDefault(); 
     setError(null);
 
     if (mode === "login") {
@@ -31,7 +31,7 @@ const AuthCard = () => {
         alert(res.msg);
         navigate("/");
       } else {
-        setError(res.error);
+         setError(res.error);
       }
     }
   };
@@ -56,7 +56,7 @@ const AuthCard = () => {
         </h2>
       </div>
 
-      {error && <p className='text-red-400 text-center'>{error}</p>}
+      {error && <p className='text-red-400 text-center mt-3'>{error}</p>}
 
 
       {!isLogin && (
@@ -65,8 +65,8 @@ const AuthCard = () => {
           <input 
             type="text" 
             required 
-            minLength={5} // Fixed typo here
-            placeholder='Full Name' // Fixed placeholder text
+            minLength={5} 
+            placeholder='Full Name' 
             className='w-full text-black outline-none ' 
             value={name} 
             onChange={(e) => setName(e.target.value)}

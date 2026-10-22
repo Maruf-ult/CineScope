@@ -27,7 +27,7 @@ const WatchList = () => {
               {favourites.length} Movies
             </h1>
           </div>
-          <div className=" grid grid-cols-5 gap-4 ">
+          <div className=" grid gird-cols-1 md:grid-cols-5 gap-4 ">
             {favourites?.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
